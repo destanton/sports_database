@@ -10,13 +10,11 @@ by player position, and runs-batted-in(rbi).
 
 
 def search_options():
-    choice = input("Would you like to search by [F]irst name, [Last] name, [P]osition, [R]BI, or [A]dd player\n> ").lower()
+    choice = input("Would you like to search by [F]irst name or [Last] name\n>").lower() #", [P]osition, [R]BI, or [A]dd player\n> ").lower()
     if choice == "f":
         name = input("What is the first name you want to search for? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE first_name = %s;", (name, ))
         results = cursor.fetchall()
-    #     for row in results:
-    #         print('{} {} {} {} {} {} {} {} {} {}'.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]).upper())
     elif choice == "l":
         last_name = input("last name? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE last_name = %s;", (last_name, ))
@@ -24,13 +22,7 @@ def search_options():
     for row in results:
         print('rank: {}, position: {}, first: {}, last: {}, age: {}, at-bats: {}, runs: {}, hits: {}, hr: {}, rbi: {}'.format(
                row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]).upper())
-
-    # elif choice == "p":
-    #     position = input("Would you like to sort by position? Y/n ")
-    #     cursor.execute("SELECT first_name, position FROM cubbies_data;")
-    #     results = cursor.fetchall()
-    #     for row in results:
-    #         print('{} {}'.format(row[0], row[1]).upper())
+    stats()
     # elif choice == "r":
     #     rbi = input("rbi? ")
     #     cursor.execute("SELECT first_name, rbi FROM cubbies_data;")
@@ -40,10 +32,25 @@ def search_options():
     #     search_options()
     # results = cursor.fetchall()
     # print(results)
+def stats():
+    choice = input("Do you want to search by [P]osition, see player [S]tats, or [A]dd a player? ").lower()
+    if choice == "p":
+        position_search()
+    elif choice == "s":
+        player_stats()
 
 
-def next_search():
-    option = input("What would you like to do next? ")
+def position_search():
+    choice = input("Would you like to sort by position? Y/n ")
+    if choice == "p":
+        cursor.execute("SELECT first_name, position FROM cubbies_data;")
+        results = cursor.fetchall()
+        for row in results:
+            print('{} {}'.format(row[0], row[1]).upper())
+
+
+def player_stats():
+    choice = input("Which stats do you want to see? ")
 
 rank = 8
 
