@@ -14,21 +14,32 @@ def search_options():
     if choice == "f":
         name = input("What is the first name you want to search for? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE first_name = %s;", (name, ))
+        results = cursor.fetchall()
+    #     for row in results:
+    #         print('{} {} {} {} {} {} {} {} {} {}'.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]).upper())
     elif choice == "l":
         last_name = input("last name? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE last_name = %s;", (last_name, ))
-    elif choice == "p":
-        position = input("Would you like to sort by position? Y/n ")
-        cursor.execute("SELECT first_name, position FROM cubbies_data;")
-    elif choice == "r":
-        rbi = input("rbi? ")
-        cursor.execute("SELECT first_name, rbi FROM cubbies_data;")
-    elif choice == "a":
-        add_player(rank)
-    else:
-        search_options()
-    results = cursor.fetchall()
-    print(results)
+        results = cursor.fetchall()
+    for row in results:
+        print('rank: {}, position: {}, first: {}, last: {}, age: {}, at-bats: {}, runs: {}, hits: {}, hr: {}, rbi: {}'.format(
+               row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]).upper())
+
+    # elif choice == "p":
+    #     position = input("Would you like to sort by position? Y/n ")
+    #     cursor.execute("SELECT first_name, position FROM cubbies_data;")
+    #     results = cursor.fetchall()
+    #     for row in results:
+    #         print('{} {}'.format(row[0], row[1]).upper())
+    # elif choice == "r":
+    #     rbi = input("rbi? ")
+    #     cursor.execute("SELECT first_name, rbi FROM cubbies_data;")
+    # elif choice == "a":
+    #     add_player(rank)
+    # else:
+    #     search_options()
+    # results = cursor.fetchall()
+    # print(results)
 
 
 def next_search():
