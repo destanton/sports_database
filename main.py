@@ -24,20 +24,20 @@ def search_options():
         rbi = input("rbi? ")
         cursor.execute("SELECT first_name, rbi FROM cubbies_data;")
     elif choice == "a":
-        add_player()
+        add_player(rank)
     else:
         search_options()
     results = cursor.fetchall()
-    results = list(results)
     print(results)
 
 
 def next_search():
     option = input("What would you like to do next? ")
 
+rank = 8
 
-def add_player():
-    rank = input("Player rank(greater than 10): ")
+
+def add_player(rank):
     position = input("Player position: ").lower()
     first_name = input("First Name: ").lower()
     last_name = input("Last Name: ").lower()
@@ -47,10 +47,10 @@ def add_player():
     hits = input("Hits: ")
     homeruns = input("Homeruns: ")
     rbi = input("RBIs: ")
-
+    rank += 1
     cursor.execute("INSERT INTO cubbies_data (rank, position, first_name, last_name, age, at_bat, runs, hits, homeruns, rbi) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (rank, position, first_name, last_name, age, at_bat, runs, hits, homeruns, rbi))
     search_options()
-    
+
 search_options()
 cursor.close()
 connection.close()
