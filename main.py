@@ -37,11 +37,20 @@ def next_search():
 
 
 def add_player():
+    rank = input("Player rank(greater than 10): ")
+    position = input("Player position: ").lower()
     first_name = input("First Name: ").lower()
     last_name = input("Last Name: ").lower()
+    age = input("Player Age: ").lower()
+    at_bat = input("At bats: ")
+    runs = input("Runs: ")
+    hits = input("Hits: ")
+    homeruns = input("Homeruns: ")
+    rbi = input("RBIs: ")
 
-    cursor.execute("INSERT INTO first_name, last_name VALUES (%s,%s)", (first_name, last_name))
-
+    cursor.execute("INSERT INTO cubbies_data (rank, position, first_name, last_name, age, at_bat, runs, hits, homeruns, rbi) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (rank, position, first_name, last_name, age, at_bat, runs, hits, homeruns, rbi))
+    search_options()
+    
 search_options()
 cursor.close()
 connection.close()
