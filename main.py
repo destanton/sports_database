@@ -10,8 +10,10 @@ by player position, and runs-batted-in(rbi).
 
 
 def search_options():
-    choice = input("Would you like to search by [F]irst name or [Last] name\n>").lower() #", [P]osition, [R]BI, or [A]dd player\n> ").lower()
-    if choice == "f":
+    choice = input("Would you like to search by [F]irst name, [Last] name, [S]tats \n>").lower()
+    if choice == "s":
+        stats()
+    elif choice == "f":
         name = input("What is the first name you want to search for? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE first_name = %s;", (name, ))
         results = cursor.fetchall()
@@ -20,24 +22,19 @@ def search_options():
         cursor.execute("SELECT * FROM cubbies_data WHERE last_name = %s;", (last_name, ))
         results = cursor.fetchall()
     for row in results:
-        print('rank: {}, position: {}, first: {}, last: {}, age: {}, at-bats: {}, runs: {}, hits: {}, hr: {}, rbi: {}'.format(
+        print('rank: {}, position: {}, first: {}, last: {}, age: {}, at-bats: {}, runs: {}, hits: {}, hr: {}, rbi: {}\n'.format(
                row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]).upper())
-    stats()
-    # elif choice == "r":
-    #     rbi = input("rbi? ")
-    #     cursor.execute("SELECT first_name, rbi FROM cubbies_data;")
-    # elif choice == "a":
-    #     add_player(rank)
-    # else:
-    #     search_options()
-    # results = cursor.fetchall()
-    # print(results)
+    search_options()
+
+
 def stats():
     choice = input("Do you want to search by [P]osition, see player [S]tats, or [A]dd a player? ").lower()
     if choice == "p":
         position_search()
     elif choice == "s":
         player_stats()
+    elif choice == "a":
+        add_player()
 
 
 def position_search():
@@ -50,7 +47,18 @@ def position_search():
 
 
 def player_stats():
-    choice = input("Which stats do you want to see? ")
+    choice = input("""\nWhich stats do you want to see?
+1. [R]bi
+2. [A]t-Bats
+3. [R]uns
+4. [H]its
+5. [HO]meruns\n>""").lower()
+    if choice == "r":
+        cursor.execute("SELECT first_name, last_name, rbi FROM cubbies_data;")
+        results = cursor.fetchall()
+        for row in results:
+            print('{}, {}, rbi: {}'.format(row[0], row[1], row[2]).upper())
+        player_stats()
 
 rank = 8
 
