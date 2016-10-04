@@ -56,12 +56,12 @@ Enter input as 'c' for catcher, 'lf' for left field, '2b' for second base: """).
 
 def player_stats():
     choice = input("""\nWhich stats do you want to see?
-1. [R]bi
-2. [A]t-Bats
-3. [RU]ns
-4. [H]its
-5. [HO]meruns
-6. [RE]turn to menu\n>""").lower()
+[R]bi
+[A]t-Bats
+[RU]ns
+[H]its
+[HO]meruns
+[RE]turn to menu\n>""").lower()
     if choice == "r":
         cursor.execute("SELECT first_name, last_name, rbi FROM cubbies_data;")
         results = cursor.fetchall()
