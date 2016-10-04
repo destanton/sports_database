@@ -14,9 +14,11 @@ KRIS BRYANT    JORGE SOLER    DEXTER FOWLER    JASON HEYWARD
 
 
 def search_options():
-    choice = input("Would you like to search by [F]irst name, [Last] name, [S]tats \n>").lower()
+    choice = input("Would you like to search by [F]irst name, [Last] name, [S]tats or [A]dd a player \n>").lower()
     if choice == "s":
         stats()
+    elif choice == "a":
+        add_player(rank)
     elif choice == "f":
         name = input("What is the first name you want to search for? ").lower()
         cursor.execute("SELECT * FROM cubbies_data WHERE first_name = %s;", (name, ))
